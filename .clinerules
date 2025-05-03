@@ -1,0 +1,85 @@
+# Quy tắc và thông tin dự án SmartFengShui
+
+## Quy ước đặt tên
+
+### Chung
+- **Tên lớp**: PascalCase (ví dụ: `HomeScreen`, `DayInfo`)
+- **Tên hàm và biến**: camelCase (ví dụ: `getDayInfo()`, `courseList`)
+- **Hằng số**: UPPER_SNAKE_CASE (ví dụ: `PRIMARY_COLOR`, `MAX_COURSES`)
+- **Tên tệp**: snake_case (ví dụ: `home_screen.dart`, `day_info.dart`)
+
+### Folder Structure
+- **lib/screens/**: Chứa các màn hình chính của ứng dụng
+- **lib/widgets/**: Chứa các widget tái sử dụng
+- **lib/models/**: Chứa các lớp model dữ liệu
+- **lib/providers/**: Chứa các lớp provider quản lý state
+- **lib/repositories/**: Chứa các lớp truy xuất dữ liệu
+- **lib/data/**: Chứa dữ liệu mẫu
+- **lib/utils/**: Chứa các tiện ích và helper
+- **lib/config/**: Chứa cấu hình, theme, và constants
+
+## Quy ước code
+
+### Chung
+- Sử dụng 2 khoảng trắng cho indentation
+- Luôn có dấu `;` ở cuối câu lệnh
+- Sử dụng dấu ngoặc nhọn cho tất cả các khối lệnh, kể cả khi chỉ có 1 câu lệnh
+
+### Widget
+- Widget có state sử dụng StatefulWidget
+- Widget không có state sử dụng StatelessWidget
+- Tách các widget lớn thành các widget con nhỏ hơn để dễ quản lý
+
+### Provider
+- Các provider kế thừa từ ChangeNotifier
+- Sử dụng MultiProvider ở root widget nếu có nhiều provider
+- Gọi notifyListeners() khi state thay đổi
+
+## Quy tắc thiết kế
+
+### Theme & Colors
+- **Primary Color**: #4CAF50 (Green)
+- **Secondary Color**: #FFC107 (Amber)
+- **Background Color**: #FFFFFF (White)
+- **Text Color**: #212121 (Dark Grey)
+- **Error Color**: #F44336 (Red)
+
+### Typography
+- **Heading**: Roboto, Bold, 24sp
+- **Subheading**: Roboto, Medium, 18sp
+- **Body**: Roboto, Regular, 14sp
+- **Caption**: Roboto, Light, 12sp
+
+### Spacing
+- **Small**: 8dp
+- **Medium**: 16dp
+- **Large**: 24dp
+- **Extra Large**: 32dp
+
+## Thông tin học được
+
+### Flutter
+- Flutter là framework UI đa nền tảng sử dụng Dart
+- Hot reload giúp phát triển nhanh chóng
+
+### Provider
+- Provider là giải pháp quản lý state đơn giản
+- Sử dụng Consumer hoặc context.watch() để lắng nghe thay đổi
+
+### Dữ liệu mẫu
+- Sử dụng Map<DateTime, DayInfo> để lưu thông tin ngày
+- Course có các thuộc tính: id, title, description, price, rating, etc.
+
+## Kinh nghiệm triển khai
+
+### Flutter
+- Cài Flutter SDK và kiểm tra bằng `flutter doctor`
+- Tạo dự án mới bằng `flutter create <project_name>`
+
+### Pub Dependencies
+- Thêm dependencies trong pubspec.yaml
+- Chạy `flutter pub get` để cài đặt dependencies
+
+### Phong thủy
+- Ngày tốt/xấu dựa trên nhiều yếu tố: âm lịch, ngũ hành, thập nhị địa chi
+- Cần nghiên cứu thêm về nguyên tắc phong thủy để cung cấp thông tin chính xác
