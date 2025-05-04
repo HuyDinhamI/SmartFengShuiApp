@@ -9,9 +9,13 @@ class CalendarProvider with ChangeNotifier {
   // Ngày được chọn hiện tại
   DateTime _selectedDate = DateTime.now();
   
+  // Trạng thái đang tải
+  bool _isLoading = false;
+  
   // Getters
   Map<String, DayInfo> get dayInfos => _dayInfos;
   DateTime get selectedDate => _selectedDate;
+  bool get isLoading => _isLoading;
   
   // Constructor
   CalendarProvider() {
@@ -29,6 +33,25 @@ class CalendarProvider with ChangeNotifier {
     } catch (e) {
       // Xử lý lỗi nếu có
       debugPrint('Lỗi khi tải thông tin ngày: $e');
+    }
+  }
+  
+  // Phương thức để tải dữ liệu ngày từ nguồn bên ngoài (API, Firestore, v.v.)
+  Future<void> fetchDayInfos() async {
+    _setLoading(true);
+    
+    try {
+      // Trong phiên bản thực tế, gọi API hoặc Firestore ở đây
+      await Future.delayed(const Duration(seconds: 1)); // Giả lập thời gian tải
+      
+      // Sử dụng dữ liệu mẫu cho phiên bản mock
+      _dayInfos = sampleDayInfos;
+      
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Lỗi khi tải thông tin ngày: $e');
+    } finally {
+      _setLoading(false);
     }
   }
   
@@ -52,18 +75,50 @@ class CalendarProvider with ChangeNotifier {
   // Phương thức để kiểm tra ngày tốt
   bool isGoodDay(DateTime date) {
     final DayInfo? info = getDayInfo(date);
-    return info != null && info.dayRating >= 4;
+    return info != null && (info.isGoodDay || info.dayRating >= 4);
   }
   
   // Phương thức để kiểm tra ngày xấu
   bool isBadDay(DateTime date) {
     final DayInfo? info = getDayInfo(date);
-    return info != null && info.dayRating <= 2;
+    return info != null && (!info.isGoodDay || info.dayRating <= 2);
   }
   
   // Phương thức để kiểm tra ngày trung bình
   bool isNeutralDay(DateTime date) {
     final DayInfo? info = getDayInfo(date);
     return info != null && info.dayRating == 3;
+  }
+  
+  // Phương thức để lấy danh sách ngày tốt trong một tháng
+  List<DateTime> getGoodDaysInMonth(int year, int month) {
+    final List<DateTime> goodDays = [];
+    
+    _dayInfos.forEach((key, info) {
+      if (info.date.year == year && info.date.month == month && info.isGoodDay) {
+        goodDays.add(info.date);
+      }
+    });
+    
+    return goodDays;
+  }
+  
+  // Phương thức để lấy danh sách ngày xấu trong một tháng
+  List<DateTime> getBadDaysInMonth(int year, int month) {
+    final List<DateTime> badDays = [];
+    
+    _dayInfos.forEach((key, info) {
+      if (info.date.year == year && info.date.month == month && !info.isGoodDay) {
+        badDays.add(info.date);
+      }
+    });
+    
+    return badDays;
+  }
+  
+  // Helper methods
+  void _setLoading(bool loading) {
+    _isLoading = loading;
+    notifyListeners();
   }
 }

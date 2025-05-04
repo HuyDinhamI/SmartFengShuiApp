@@ -52,7 +52,7 @@ class DateDetailScreen extends StatelessWidget {
             _buildInfoSection(
               context,
               AppConstants.goodForLabel,
-              dayInfo.goodFor,
+              dayInfo.suitableActivities,
               Icons.check_circle,
               AppTheme.goodDayColor,
             ),
@@ -63,7 +63,7 @@ class DateDetailScreen extends StatelessWidget {
             _buildInfoSection(
               context,
               AppConstants.badForLabel,
-              dayInfo.badFor,
+              dayInfo.unsuitableActivities,
               Icons.cancel,
               AppTheme.badDayColor,
             ),
