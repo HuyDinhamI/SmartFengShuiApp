@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../config/constants.dart';
 import '../config/theme.dart';
+import '../widgets/background_container.dart';
 import 'calendar_screen.dart';
 import 'course_list_screen.dart';
 
@@ -9,104 +10,110 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppConstants.appName),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          // Phần chào mừng
-          Container(
-            padding: const EdgeInsets.all(AppTheme.spacingLarge),
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                const Icon(
-                  Icons.spa,
-                  size: 72,
-                  color: AppTheme.primaryColor,
-                ),
-                const SizedBox(height: AppTheme.spacingMedium),
-                Text(
-                  AppConstants.welcomeText,
-                  style: Theme.of(context).textTheme.displayLarge,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppTheme.spacingMedium),
-                Text(
-                  'Vận trình phong thủy mỗi ngày',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppTheme.mediumGray,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppTheme.spacingLarge),
-              ],
-            ),
-          ),
-          
-          // Hai nút chức năng chính
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppTheme.spacingLarge,
-                vertical: AppTheme.spacingMedium,
-              ),
+    return BackgroundContainer(
+      opacity: 0.9,
+      useOverlay: true,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(AppConstants.appName),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor?.withOpacity(0.85),
+        ),
+        body: Column(
+          children: [
+            // Phần chào mừng
+            Container(
+              padding: const EdgeInsets.all(AppTheme.spacingLarge),
+              alignment: Alignment.center,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Nút Xem Ngày
-                  _buildFeatureCard(
-                    context,
-                    title: AppConstants.calendarTabTitle,
-                    icon: Icons.calendar_today,
-                    description: 'Tra cứu ngày tốt xấu, việc nên làm và nên tránh',
-                    color: AppTheme.goodDayColor,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CalendarScreen(),
-                        ),
-                      );
-                    },
+                  const Icon(
+                    Icons.spa,
+                    size: 72,
+                    color: AppTheme.primaryColor,
                   ),
-                  
+                  const SizedBox(height: AppTheme.spacingMedium),
+                  Text(
+                    AppConstants.welcomeText,
+                    style: Theme.of(context).textTheme.displayLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppTheme.spacingMedium),
+                  Text(
+                    'Vận trình phong thủy mỗi ngày',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppTheme.mediumGray,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                   const SizedBox(height: AppTheme.spacingLarge),
-                  
-                  // Nút Khóa Học
-                  _buildFeatureCard(
-                    context,
-                    title: AppConstants.coursesTabTitle,
-                    icon: Icons.school,
-                    description: 'Khám phá các khóa học phong thủy cho bạn',
-                    color: AppTheme.secondaryColor,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CourseListScreen(),
-                        ),
-                      );
-                    },
-                  ),
                 ],
               ),
             ),
-          ),
-          
-          // Footer
-          Padding(
-            padding: const EdgeInsets.all(AppTheme.spacingMedium),
-            child: Text(
-              '© 2025 SmartFengShui',
-              style: Theme.of(context).textTheme.bodySmall,
-              textAlign: TextAlign.center,
+            
+            // Hai nút chức năng chính
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppTheme.spacingLarge,
+                  vertical: AppTheme.spacingMedium,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Nút Xem Ngày
+                    _buildFeatureCard(
+                      context,
+                      title: AppConstants.calendarTabTitle,
+                      icon: Icons.calendar_today,
+                      description: 'Tra cứu ngày tốt xấu, việc nên làm và nên tránh',
+                      color: AppTheme.goodDayColor,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CalendarScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    
+                    const SizedBox(height: AppTheme.spacingLarge),
+                    
+                    // Nút Khóa Học
+                    _buildFeatureCard(
+                      context,
+                      title: AppConstants.coursesTabTitle,
+                      icon: Icons.school,
+                      description: 'Khám phá các khóa học phong thủy cho bạn',
+                      color: AppTheme.secondaryColor,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CourseListScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+            
+            // Footer
+            Padding(
+              padding: const EdgeInsets.all(AppTheme.spacingMedium),
+              child: Text(
+                '© 2025 SmartFengShui',
+                style: Theme.of(context).textTheme.bodySmall,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -121,6 +128,7 @@ class HomeScreen extends StatelessWidget {
   }) {
     return Card(
       elevation: 3,
+      color: Theme.of(context).cardTheme.color?.withOpacity(0.85),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppTheme.borderRadiusLarge),
       ),

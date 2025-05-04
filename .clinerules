@@ -70,6 +70,11 @@
 - Sử dụng Map<DateTime, DayInfo> để lưu thông tin ngày
 - Course có các thuộc tính: id, title, description, price, rating, etc.
 
+### Mô hình dữ liệu
+- Các thuộc tính trong model DayInfo: suitableActivities và unsuitableActivities thay vì goodFor và badFor
+- Cần chú ý tính nhất quán giữa định nghĩa model và việc tham chiếu thuộc tính
+- Luôn kiểm tra tên thuộc tính trong model trước khi sử dụng trong view
+
 ## Kinh nghiệm triển khai
 
 ### Flutter
@@ -83,3 +88,8 @@
 ### Phong thủy
 - Ngày tốt/xấu dựa trên nhiều yếu tố: âm lịch, ngũ hành, thập nhị địa chi
 - Cần nghiên cứu thêm về nguyên tắc phong thủy để cung cấp thông tin chính xác
+
+### Bài học từ lỗi
+- Khi model dữ liệu được cập nhật (đổi tên thuộc tính), cần kiểm tra lại tất cả các nơi sử dụng
+- Sử dụng IDE hỗ trợ để phát hiện lỗi tham chiếu sớm (warning, error)
+- Kiểm tra kỹ lưỡng việc mapping giữa các tên thuộc tính khi chuyển đổi dữ liệu

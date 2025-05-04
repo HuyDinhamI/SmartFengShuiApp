@@ -17,6 +17,7 @@ Dự án đang được cập nhật với kế hoạch mở rộng:
 2. Xác định kiến trúc tích hợp Firebase và API bên ngoài
 3. Lên kế hoạch phát triển các tính năng mới (Chatbot, Sinh ảnh, AR/VR, etc.)
 4. Thay đổi sang tông màu tối cho giao diện người dùng
+5. Sửa lỗi tham chiếu thuộc tính không tồn tại trong CalendarScreen (thay đổi từ goodFor/badFor sang suitableActivities/unsuitableActivities)
 
 ## Quyết định đang thực hiện
 
@@ -25,6 +26,7 @@ Dự án đang được cập nhật với kế hoạch mở rộng:
 3. **Thiết kế modular**: Tổ chức code theo module chức năng rõ ràng để dễ bảo trì và mở rộng
 4. **Mock API**: Trong giai đoạn phát triển, sử dụng mock data cho các tính năng cần API bên ngoài
 5. **Dark theme**: Chuyển đổi toàn bộ giao diện sang dark theme cho trải nghiệm người dùng hiện đại
+6. **Nhất quán trong đặt tên thuộc tính**: Đảm bảo sự nhất quán giữa model định nghĩa và cách gọi trong UI
 
 ## Các bước tiếp theo
 
@@ -33,6 +35,7 @@ Dự án đang được cập nhật với kế hoạch mở rộng:
 2. Tạo các màn hình xác thực (đăng nhập, đăng ký, quên mật khẩu)
 3. Chuyển đổi theme sang tông màu tối
 4. Tạo các model mới (User, ChatMessage, Notification, etc.)
+5. Kiểm tra các màn hình khác về vấn đề tương thích với model dữ liệu
 
 ### Ngắn hạn (1 tuần)
 1. Xây dựng Bottom Navigation Bar với 5 tab chính
@@ -61,6 +64,7 @@ Dự án đang được cập nhật với kế hoạch mở rộng:
 3. **Caching và offline-first**: Triển khai chiến lược caching để hoạt động tốt cả khi offline
 4. **Tối ưu hiệu suất**: Đảm bảo ứng dụng hoạt động mượt mà trên nhiều thiết bị
 5. **Bảo mật dữ liệu**: Áp dụng các biện pháp bảo mật cho authentication và dữ liệu người dùng
+6. **Tính nhất quán trong mô hình dữ liệu**: Đảm bảo các model dữ liệu được thiết kế tốt và sử dụng nhất quán trong toàn bộ ứng dụng
 
 ## Rủi ro và thách thức
 
@@ -69,6 +73,7 @@ Dự án đang được cập nhật với kế hoạch mở rộng:
 3. **Testing đa nền tảng**: Đảm bảo ứng dụng hoạt động tốt trên nhiều thiết bị Android khác nhau
 4. **UX phức tạp**: Thiết kế trải nghiệm người dùng trực quan khi số lượng tính năng tăng lên
 5. **Dữ liệu phong thủy**: Đảm bảo cung cấp thông tin phong thủy chính xác và hữu ích
+6. **Refactoring code**: Cần thận trọng khi thay đổi cấu trúc model để không gây ra lỗi tham chiếu
 
 ## Ưu tiên phát triển
 

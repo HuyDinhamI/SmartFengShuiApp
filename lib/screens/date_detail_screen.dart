@@ -5,6 +5,7 @@ import '../config/constants.dart';
 import '../config/theme.dart';
 import '../providers/calendar_provider.dart';
 import '../models/day_info.dart';
+import '../widgets/background_container.dart';
 
 class DateDetailScreen extends StatelessWidget {
   const DateDetailScreen({super.key});
@@ -17,81 +18,93 @@ class DateDetailScreen extends StatelessWidget {
 
     // Nếu không có thông tin ngày, hiển thị thông báo
     if (dayInfo == null) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(AppConstants.dayDetailsTitle),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Text(AppConstants.noDayInfoAvailable),
+      return BackgroundContainer(
+        opacity: 0.9,
+        useOverlay: true,
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            title: Text(AppConstants.dayDetailsTitle),
+            centerTitle: true,
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor?.withOpacity(0.85),
+          ),
+          body: Center(
+            child: Text(AppConstants.noDayInfoAvailable),
+          ),
         ),
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppConstants.dayDetailsTitle),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppTheme.spacingMedium),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Thông tin cơ bản
-            _buildBasicInfo(context, dayInfo, selectedDate),
-            
-            const SizedBox(height: AppTheme.spacingMedium),
-            
-            // Đánh giá ngày
-            _buildRatingSection(context, dayInfo),
-            
-            const SizedBox(height: AppTheme.spacingLarge),
-            
-            // Việc nên làm
-            _buildInfoSection(
-              context,
-              AppConstants.goodForLabel,
-              dayInfo.suitableActivities,
-              Icons.check_circle,
-              AppTheme.goodDayColor,
-            ),
-            
-            const SizedBox(height: AppTheme.spacingLarge),
-            
-            // Việc nên tránh
-            _buildInfoSection(
-              context,
-              AppConstants.badForLabel,
-              dayInfo.unsuitableActivities,
-              Icons.cancel,
-              AppTheme.badDayColor,
-            ),
-            
-            const SizedBox(height: AppTheme.spacingLarge),
-            
-            // Hướng tốt
-            _buildInfoSection(
-              context,
-              AppConstants.luckyDirectionsLabel,
-              dayInfo.luckyDirections,
-              Icons.explore,
-              AppTheme.primaryColor,
-            ),
-            
-            const SizedBox(height: AppTheme.spacingLarge),
-            
-            // Màu may mắn
-            _buildInfoSection(
-              context,
-              AppConstants.luckyColorsLabel,
-              dayInfo.luckyColors,
-              Icons.palette,
-              AppTheme.secondaryColor,
-            ),
-            
-            const SizedBox(height: AppTheme.spacingXLarge),
-          ],
+    return BackgroundContainer(
+      opacity: 0.9,
+      useOverlay: true,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(AppConstants.dayDetailsTitle),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor?.withOpacity(0.85),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(AppTheme.spacingMedium),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Thông tin cơ bản
+              _buildBasicInfo(context, dayInfo, selectedDate),
+              
+              const SizedBox(height: AppTheme.spacingMedium),
+              
+              // Đánh giá ngày
+              _buildRatingSection(context, dayInfo),
+              
+              const SizedBox(height: AppTheme.spacingLarge),
+              
+              // Việc nên làm
+              _buildInfoSection(
+                context,
+                AppConstants.goodForLabel,
+                dayInfo.suitableActivities,
+                Icons.check_circle,
+                AppTheme.goodDayColor,
+              ),
+              
+              const SizedBox(height: AppTheme.spacingLarge),
+              
+              // Việc nên tránh
+              _buildInfoSection(
+                context,
+                AppConstants.badForLabel,
+                dayInfo.unsuitableActivities,
+                Icons.cancel,
+                AppTheme.badDayColor,
+              ),
+              
+              const SizedBox(height: AppTheme.spacingLarge),
+              
+              // Hướng tốt
+              _buildInfoSection(
+                context,
+                AppConstants.luckyDirectionsLabel,
+                dayInfo.luckyDirections,
+                Icons.explore,
+                AppTheme.primaryColor,
+              ),
+              
+              const SizedBox(height: AppTheme.spacingLarge),
+              
+              // Màu may mắn
+              _buildInfoSection(
+                context,
+                AppConstants.luckyColorsLabel,
+                dayInfo.luckyColors,
+                Icons.palette,
+                AppTheme.secondaryColor,
+              ),
+              
+              const SizedBox(height: AppTheme.spacingXLarge),
+            ],
+          ),
         ),
       ),
     );
@@ -101,6 +114,7 @@ class DateDetailScreen extends StatelessWidget {
   Widget _buildBasicInfo(BuildContext context, DayInfo dayInfo, DateTime selectedDate) {
     return Card(
       elevation: 2,
+      color: Theme.of(context).cardTheme.color?.withOpacity(0.85),
       child: Padding(
         padding: const EdgeInsets.all(AppTheme.spacingMedium),
         child: Column(
@@ -170,6 +184,7 @@ class DateDetailScreen extends StatelessWidget {
 
     return Card(
       elevation: 2,
+      color: Theme.of(context).cardTheme.color?.withOpacity(0.85),
       child: Padding(
         padding: const EdgeInsets.all(AppTheme.spacingMedium),
         child: Column(
@@ -231,6 +246,7 @@ class DateDetailScreen extends StatelessWidget {
   ) {
     return Card(
       elevation: 2,
+      color: Theme.of(context).cardTheme.color?.withOpacity(0.85),
       child: Padding(
         padding: const EdgeInsets.all(AppTheme.spacingMedium),
         child: Column(

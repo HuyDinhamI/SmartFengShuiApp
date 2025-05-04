@@ -7,6 +7,7 @@ import '../config/constants.dart';
 import '../config/theme.dart';
 import '../providers/calendar_provider.dart';
 import '../models/day_info.dart';
+import '../widgets/background_container.dart';
 import 'date_detail_screen.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -36,115 +37,121 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     final calendarProvider = Provider.of<CalendarProvider>(context);
     
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppConstants.calendarTabTitle),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+    return BackgroundContainer(
+      opacity: 0.9,
+      useOverlay: true,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(AppConstants.calendarTabTitle),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor?.withOpacity(0.85),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
-      ),
-      // Bọc trong SingleChildScrollView để tránh lỗi overflow
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Widget lịch
-            TableCalendar(
-              firstDay: DateTime.utc(2025, 1, 1),
-              lastDay: DateTime.utc(2025, 12, 31),
-              focusedDay: _focusedDay,
-              calendarFormat: _calendarFormat,
-              selectedDayPredicate: (day) {
-                return isSameDay(_selectedDay, day);
-              },
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-                
-                // Cập nhật ngày đã chọn trong provider
-                calendarProvider.selectDate(selectedDay);
-                
-                // Chuyển đến màn hình chi tiết ngày nếu có thông tin
-                if (calendarProvider.hasDayInfo(selectedDay)) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DateDetailScreen(),
-                    ),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(AppConstants.noDayInfoAvailable),
-                      duration: const Duration(seconds: 2),
-                    ),
-                  );
-                }
-              },
-              onFormatChanged: (format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              },
-              onPageChanged: (focusedDay) {
-                setState(() {
-                  _focusedDay = focusedDay;
-                });
-              },
-              calendarStyle: CalendarStyle(
-                // Tùy chỉnh màu sắc cho các ngày tốt, xấu
-                markersMaxCount: 3,
-                markersAlignment: Alignment.bottomCenter,
-              ),
-              calendarBuilders: CalendarBuilders(
-                markerBuilder: (context, date, events) {
-                  // Tô màu các ngày tốt, xấu
-                  if (calendarProvider.isGoodDay(date)) {
-                    return Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: AppTheme.goodDayColor,
-                        shape: BoxShape.circle,
+        // Bọc trong SingleChildScrollView để tránh lỗi overflow
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Widget lịch
+              TableCalendar(
+                firstDay: DateTime.utc(2025, 1, 1),
+                lastDay: DateTime.utc(2025, 12, 31),
+                focusedDay: _focusedDay,
+                calendarFormat: _calendarFormat,
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    _selectedDay = selectedDay;
+                    _focusedDay = focusedDay;
+                  });
+                  
+                  // Cập nhật ngày đã chọn trong provider
+                  calendarProvider.selectDate(selectedDay);
+                  
+                  // Chuyển đến màn hình chi tiết ngày nếu có thông tin
+                  if (calendarProvider.hasDayInfo(selectedDay)) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DateDetailScreen(),
                       ),
                     );
-                  } else if (calendarProvider.isBadDay(date)) {
-                    return Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: AppTheme.badDayColor,
-                        shape: BoxShape.circle,
-                      ),
-                    );
-                  } else if (calendarProvider.isNeutralDay(date)) {
-                    return Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: AppTheme.neutralDayColor,
-                        shape: BoxShape.circle,
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(AppConstants.noDayInfoAvailable),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   }
-                  return null;
                 },
+                onFormatChanged: (format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                },
+                onPageChanged: (focusedDay) {
+                  setState(() {
+                    _focusedDay = focusedDay;
+                  });
+                },
+                calendarStyle: CalendarStyle(
+                  // Tùy chỉnh màu sắc cho các ngày tốt, xấu
+                  markersMaxCount: 3,
+                  markersAlignment: Alignment.bottomCenter,
+                ),
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: (context, date, events) {
+                    // Tô màu các ngày tốt, xấu
+                    if (calendarProvider.isGoodDay(date)) {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: AppTheme.goodDayColor,
+                          shape: BoxShape.circle,
+                        ),
+                      );
+                    } else if (calendarProvider.isBadDay(date)) {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: AppTheme.badDayColor,
+                          shape: BoxShape.circle,
+                        ),
+                      );
+                    } else if (calendarProvider.isNeutralDay(date)) {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: AppTheme.neutralDayColor,
+                          shape: BoxShape.circle,
+                        ),
+                      );
+                    }
+                    return null;
+                  },
+                ),
               ),
-            ),
-            
-            const SizedBox(height: 16),
-            
-            // Hiển thị thông tin ngày hôm nay - đã loại bỏ Expanded để tránh lỗi overflow
-            _buildTodayInfoCard(calendarProvider),
-            
-            const SizedBox(height: 16), // Thêm khoảng cách phía dưới
-          ],
+              
+              const SizedBox(height: 16),
+              
+              // Hiển thị thông tin ngày hôm nay - đã loại bỏ Expanded để tránh lỗi overflow
+              _buildTodayInfoCard(calendarProvider),
+              
+              const SizedBox(height: 16), // Thêm khoảng cách phía dưới
+            ],
+          ),
         ),
       ),
     );
@@ -164,6 +171,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       constraints: const BoxConstraints(minHeight: 250),
       child: Card(
         margin: const EdgeInsets.all(AppTheme.spacingMedium),
+        color: Theme.of(context).cardTheme.color?.withOpacity(0.85),
         child: Padding(
           padding: const EdgeInsets.all(AppTheme.spacingMedium),
           child: Column(
@@ -193,14 +201,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
               const SizedBox(height: 16),
               _buildListSection(
                 AppConstants.goodForLabel,
-                todayInfo.goodFor,
+                todayInfo.suitableActivities,
                 Icons.check_circle,
                 AppTheme.goodDayColor,
               ),
               const SizedBox(height: 8),
               _buildListSection(
                 AppConstants.badForLabel,
-                todayInfo.badFor,
+                todayInfo.unsuitableActivities,
                 Icons.cancel,
                 AppTheme.badDayColor,
               ),

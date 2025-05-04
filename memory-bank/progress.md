@@ -25,10 +25,12 @@
 - [x] Phát triển màn hình chính và navigation
 - [x] Xây dựng màn hình calendar và xem ngày
 - [x] Xây dựng màn hình khóa học
+- [x] Sửa lỗi tham chiếu thuộc tính trong CalendarScreen
 
 ### Kiểm thử ⚠️
 - [x] Kiểm thử và sửa lỗi hiển thị (overflow)
 - [x] Kiểm thử trên Android Emulator
+- [x] Phát hiện và sửa lỗi tương thích giữa model và UI (goodFor/badFor -> suitableActivities/unsuitableActivities)
 - [ ] Kiểm thử trên thiết bị Android thực
 - [ ] Kiểm thử trên thiết bị iOS
 - [ ] Kiểm tra UX và tính dễ sử dụng
@@ -37,16 +39,18 @@
 - [x] Viết README với hướng dẫn cài đặt và sử dụng
 - [x] Tạo ASCii art banner cho ứng dụng
 - [x] Cập nhật Memory Bank với phạm vi dự án mở rộng
+- [x] Cập nhật Memory Bank với thông tin sửa lỗi và bài học mới
 
 ## Tình trạng hiện tại
 
-**Trạng thái**: Hoàn thành MVP cơ bản, chuyển sang giai đoạn mở rộng
+**Trạng thái**: Hoàn thành MVP cơ bản, sửa các lỗi phát hiện, chuyển sang giai đoạn mở rộng
 
-**Tiến độ phiên bản cơ bản**: 90%
+**Tiến độ phiên bản cơ bản**: 92%
 
 **Tiến độ phiên bản mở rộng**: 15% (lập kế hoạch và cập nhật tài liệu)
 
 **Nhiệm vụ ưu tiên hiện tại**:
+- Kiểm tra các màn hình khác về khả năng tồn tại lỗi tương tự (tham chiếu thuộc tính không tồn tại)
 - Thiết lập Firebase và cài đặt dependencies mới
 - Chuyển đổi sang dark theme
 - Phát triển hệ thống xác thực người dùng
@@ -100,6 +104,7 @@
 | Mock API cho chatbot và sinh ảnh | Cao | Cần phát triển | Phát triển service layer với mock data |
 | Kiến trúc cho nhiều tính năng | Trung bình | Đang lên kế hoạch | Thiết kế modular với tách biệt các module chức năng |
 | Bottom Navigation phức tạp | Trung bình | Cần thiết kế | Thiết kế với 5 tab và nút trung tâm nổi bật |
+| Nhất quán trong model dữ liệu | Trung bình | Đã giải quyết một phần | Đã sửa lỗi tham chiếu thuộc tính không tồn tại trong calendar_screen.dart |
 
 ## Tiến độ theo tính năng
 
@@ -107,7 +112,7 @@
 |-----------|------------|---------|------------|
 | Đăng nhập/Đăng ký | 1 | 0% | Chưa bắt đầu |
 | Hồ sơ người dùng | 2 | 0% | Chưa bắt đầu |
-| Xem ngày | 3 | 85% | Cần nâng cấp |
+| Xem ngày | 3 | 88% | Nâng cấp, sửa lỗi |
 | Chatbot | 4 | 0% | Chưa bắt đầu |
 | Sinh ảnh | 5 | 0% | Chưa bắt đầu |
 | Khóa học | 6 | 85% | Cần nâng cấp |
@@ -139,3 +144,4 @@
 | 03/05/2025 | Thiết kế lại màn hình chính (Home Screen) với 2 icon lớn để cải thiện UX |
 | 04/05/2025 | Lên kế hoạch phát triển mở rộng |
 | 04/05/2025 | Cập nhật Memory Bank với phạm vi và kiến trúc mới |
+| 04/05/2025 | Sửa lỗi tham chiếu thuộc tính trong calendar_screen.dart (goodFor/badFor -> suitableActivities/unsuitableActivities) |
